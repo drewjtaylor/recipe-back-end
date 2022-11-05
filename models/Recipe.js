@@ -4,7 +4,7 @@ const {Schema} = mongoose;
 const savedRecipeSchema = new Schema({
     spoonacularId: {
         type: Number,
-        reguired: true
+        required: true
     },
     userDescription: {
         type: String,
@@ -17,6 +17,11 @@ const savedRecipeSchema = new Schema({
     },
     favorite: {
         type: Boolean
+    },
+    public: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 });
 

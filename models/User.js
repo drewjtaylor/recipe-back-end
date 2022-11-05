@@ -19,6 +19,10 @@ const userSchema = new Schema({
     admin: {
         type: Boolean,
         default: false
+    },
+    favoriteRecipes: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Recipe'
     }
 });
 
