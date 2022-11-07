@@ -2,19 +2,26 @@ const express = require('express');
 const savedRecipeRouter = express.Router();
 const authenticate = require('../authenticate');
 const Recipe = require('../models/Recipe');
-// const User = require('../models/User');
+const User = require('../models/User');
 
 
 
 // This endpoint is for saved recipes for individual users. Users should be authenticated for most actions, and they should only be
 // able to alter or view recipes on their own list.
 
-
 savedRecipeRouter.route('/')
-.get((req, res, next) => {})
-.post(
-    authenticate.verifyUser, 
-    (req, res, next) => {})
+// get request list 
+.get(authenticate.verifyUser, (req, res, next) => {
+    User.findById(req.user._id)
+    .then(user => {
+        res.statusCode=200;
+        res.setHeader('Content-Type', 'text/json');
+        res.json(user)
+    })
+})
+
+
+.post(authenticate.verifyUser, (req, res, next) => {})
 .put((req, res) => {})
 .delete(authenticate.verifyUser, authenticate.verifyAdmin, (req, res) => {});
 

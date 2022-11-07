@@ -20,10 +20,10 @@ const userSchema = new Schema({
         type: Boolean,
         default: false
     },
-    favoriteRecipes: {
+    favoriteRecipes: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Recipe'
-    }
+        ref: 'SavedRecipe'
+    }]
 });
 
 userSchema.plugin(passportLocalMongoose);
