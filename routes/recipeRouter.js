@@ -3,6 +3,8 @@ const recipeRouter = express.Router();
 const authenticate = require('../authenticate');
 const Recipe = require('../models/Recipe');
 const User = require('../models/User');
+const axios = require('axios').default;
+require('dotenv').config();
 
 
 
@@ -19,11 +21,22 @@ recipeRouter.route('/')
         res.json(user)
     })
 })
-
-
 .post(authenticate.verifyUser, (req, res, next) => {})
 .put((req, res) => {})
 .delete(authenticate.verifyUser, authenticate.verifyAdmin, (req, res) => {});
+
+
+recipeRouter.route('/random')
+.get((req, res, next) => {
+    axios.get(`https://api.spoonacular.com/recipes/random?apiKey=${process.env.SPOONACULAR_API_KEY}`)
+    .then(recipe => {
+        console.log(recipe);
+        // res.statusCode = 200;
+        // res.setHeader('Content-Type', 'text/json');
+        // res.json(recipe)
+    })
+})
+
 
 recipeRouter.route('/:savedRecipeId')
 .get(authenticate.verifyUser, (req, res, next) => {
@@ -57,7 +70,6 @@ recipeRouter.route('/:savedRecipeId')
         };
     });
 })
-
 // Event creators, or any admin user may delete events.
 .delete(authenticate.verifyUser, (req, res, next) => {
     Event.findById(req.params.eventId)

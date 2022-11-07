@@ -49,7 +49,7 @@ app.use(express.json());
 app.use(passport.initialize());
 
 // Route references
-app.use('/savedRecipes', savedRecipeRouter);
+app.use('/recipes', recipeRouter);
 app.use('/users', userRouter)
 
 // Essentially means, "static files are served at THIS FOLDER + /public".
