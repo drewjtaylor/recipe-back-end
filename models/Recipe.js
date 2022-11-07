@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
-const savedRecipeSchema = new Schema({
+const RecipeSchema = new Schema({
     spoonacularId: {
         type: Number,
         required: true
@@ -25,4 +25,4 @@ const savedRecipeSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('SavedRecipe', savedRecipeSchema);
+module.exports = mongoose.model('Recipe', RecipeSchema);
