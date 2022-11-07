@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
 
-const savedRecipeRouter = require('./routes/savedRecipeRouter');
+const recipeRouter = require('./routes/recipeRouter');
 const userRouter = require('./routes/usersRouter');
 const config = require('./config');
 
