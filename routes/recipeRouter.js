@@ -1,18 +1,13 @@
 const express = require('express');
+require('dotenv').config();
 const recipeRouter = express.Router();
 const authenticate = require('../authenticate');
 const Recipe = require('../models/Recipe');
 const User = require('../models/User');
-const axios = require('axios').default;
-require('dotenv').config();
+const axios = require('axios');
 
-
-
-// This endpoint is for saved recipes for individual users. Users should be authenticated for most actions, and they should only be
-// able to alter or view recipes on their own list.
 
 recipeRouter.route('/')
-// get request list 
 .get(authenticate.verifyUser, (req, res, next) => {
     User.findById(req.user._id)
     .then(user => {
@@ -29,11 +24,9 @@ recipeRouter.route('/')
 recipeRouter.route('/random')
 .get((req, res, next) => {
     axios.get(`https://api.spoonacular.com/recipes/random?apiKey=${process.env.SPOONACULAR_API_KEY}`)
-    .then(recipe => {
-        console.log(recipe);
-        // res.statusCode = 200;
-        // res.setHeader('Content-Type', 'text/json');
-        // res.json(recipe)
+    .then(response => {
+        console.log(JSON.stringify(response.data, null, 2));
+        res.json(response.data.recipes)
     })
 })
 
