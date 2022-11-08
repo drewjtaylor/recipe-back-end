@@ -32,15 +32,16 @@ app.use(morgan('dev'));
 
 
 // Redirect non-secure requests to https
-app.all('*', (req, res, next) => {
-    if (req.secure) {
-        return next();
-    } else {
-        const secureUrl = `https://${req.hostname}:${app.get('secPort')}${req.url}`;
-        console.log(`Redirecting to: ${secureUrl}`);
-        res.redirect(308, secureUrl);
-    }
-});
+// Not actually a real certificate anyway, and although it works lcoally, causes problems for deployment
+// app.all('*', (req, res, next) => {
+//     if (req.secure) {
+//         return next();
+//     } else {
+//         const secureUrl = `https://${req.hostname}:${app.get('secPort')}${req.url}`;
+//         console.log(`Redirecting to: ${secureUrl}`);
+//         res.redirect(308, secureUrl);
+//     }
+// });
 
 // Set up json middleware for dealing with JSON data
 app.use(express.json());
