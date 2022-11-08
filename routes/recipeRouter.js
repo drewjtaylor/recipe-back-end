@@ -5,6 +5,8 @@ const authenticate = require('../authenticate');
 const Recipe = require('../models/Recipe');
 const User = require('../models/User');
 const axios = require('axios');
+const cors = require('./cors');
+
 
 
 recipeRouter.route('/')
@@ -22,11 +24,12 @@ recipeRouter.route('/')
 
 
 recipeRouter.route('/random')
-.get((req, res, next) => {
+.options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+.get(cors.cors, (req, res, next) => {
     axios.get(`https://api.spoonacular.com/recipes/random?apiKey=${process.env.SPOONACULAR_API_KEY}`)
     .then(response => {
         console.log(JSON.stringify(response.data, null, 2));
-        res.json(response.data.recipes)
+        res.json(response.data)
     })
 })
 
