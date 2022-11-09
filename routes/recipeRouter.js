@@ -11,6 +11,7 @@ const baseUrl = 'https://api.spoonacular.com/recipes';
 const key = process.env.SPOONACULAR_API_KEY;
 
 recipeRouter.route('/searchByIngredient')
+.options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
 .get(cors.cors, (req, res, next) => {
     axios.get(`${baseUrl}/findByIngredients?apiKey=${key}&ingredients=${req.query.ingredients}&number=${req.query.number}`)
     .then(response => {
@@ -18,7 +19,6 @@ recipeRouter.route('/searchByIngredient')
         res.json(response.data)
     })
 })
-
 
 recipeRouter.route('/')
 .get(authenticate.verifyUser, (req, res, next) => {
