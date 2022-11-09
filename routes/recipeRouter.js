@@ -12,7 +12,7 @@ const key = process.env.SPOONACULAR_API_KEY;
 
 recipeRouter.route('/searchByIngredient')
 .get(cors.cors, (req, res, next) => {
-    axios.get(`${baseUrl}/findByIngredients?apiKey=${key}&ingredients=apple,+flour&number=3`)
+    axios.get(`${baseUrl}/findByIngredients?apiKey=${key}&ingredients=${req.query.ingredients}&number=${req.query.number}`)
     .then(response => {
         console.log(JSON.stringify(response.data, null, 2));
         res.json(response.data)
@@ -37,7 +37,7 @@ recipeRouter.route('/')
 recipeRouter.route('/random')
 .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
 .get(cors.cors, (req, res, next) => {
-    axios.get(`${baseurl}/random?apiKey=${key}`)
+    axios.get(`${baseUrl}/random?apiKey=${key}`)
     .then(response => {
         console.log(JSON.stringify(response.data, null, 2));
         res.json(response.data)
