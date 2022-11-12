@@ -20,6 +20,18 @@ recipeRouter.route('/searchByIngredient')
     })
 })
 
+
+recipeRouter.route('/random')
+.options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+.get(cors.cors, (req, res, next) => {
+    axios.get(`${baseUrl}/random?apiKey=${key}`)
+    .then(response => {
+        console.log(JSON.stringify(response.data, null, 2));
+        res.json(response.data)
+    })
+})
+
+
 recipeRouter.route('/')
 .get(authenticate.verifyUser, (req, res, next) => {
     User.findById(req.user._id)
@@ -32,17 +44,6 @@ recipeRouter.route('/')
 .post(authenticate.verifyUser, (req, res, next) => {})
 .put((req, res) => {})
 .delete(authenticate.verifyUser, authenticate.verifyAdmin, (req, res) => {});
-
-
-recipeRouter.route('/random')
-.options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
-.get(cors.cors, (req, res, next) => {
-    axios.get(`${baseUrl}/random?apiKey=${key}`)
-    .then(response => {
-        console.log(JSON.stringify(response.data, null, 2));
-        res.json(response.data)
-    })
-})
 
 
 recipeRouter.route('/:savedRecipeId')
