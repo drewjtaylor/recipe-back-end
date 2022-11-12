@@ -6,6 +6,7 @@ const passport = require('passport');
 const recipeRouter = require('./routes/recipeRouter');
 const userRouter = require('./routes/usersRouter');
 const config = require('./config');
+const cors = require('cors');
 
 const hostname = 'localhost';
 const port = 3000;
@@ -29,6 +30,11 @@ const app = express();
 
 // Set up Morgan middleware logging in dev mode
 app.use(morgan('dev'));
+
+// Allow requests from localhost:3001
+app.use(cors({
+    origin: 'http://localhost:3001'
+}))
 
 
 // Redirect non-secure requests to https
