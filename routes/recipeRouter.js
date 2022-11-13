@@ -5,13 +5,12 @@ const authenticate = require('../authenticate');
 const Recipe = require('../models/Recipe');
 const User = require('../models/User');
 const axios = require('axios');
-const cors = require('./cors');
 
 const baseUrl = 'https://api.spoonacular.com/recipes';
 const key = process.env.SPOONACULAR_API_KEY;
 
 recipeRouter.route('/searchByIngredient')
-.get(cors.cors, (req, res, next) => {
+.get((req, res, next) => {
     axios.get(`${baseUrl}/findByIngredients?apiKey=${key}&ingredients=${req.query.ingredients}&number=${req.query.number}`)
     .then(response => {
         console.log(JSON.stringify(response.data, null, 2));
@@ -21,8 +20,7 @@ recipeRouter.route('/searchByIngredient')
 
 
 recipeRouter.route('/random')
-.options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
-.get(cors.cors, (req, res, next) => {
+.get((req, res, next) => {
     axios.get(`${baseUrl}/random?apiKey=${key}`)
     .then(response => {
         console.log(JSON.stringify(response.data, null, 2));
