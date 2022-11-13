@@ -14,6 +14,8 @@ recipeRouter.route('/searchByIngredient')
     axios.get(`${baseUrl}/findByIngredients?apiKey=${key}&ingredients=${req.query.ingredients}&number=${req.query.number}`)
     .then(response => {
         console.log(JSON.stringify(response.data, null, 2));
+        res.statusCode=200;
+        res.setHeader('Content-Type', 'text/json');
         res.json(response.data)
     })
 })
@@ -24,6 +26,8 @@ recipeRouter.route('/random')
     axios.get(`${baseUrl}/random?apiKey=${key}`)
     .then(response => {
         console.log(JSON.stringify(response.data, null, 2));
+        res.statusCode=200;
+        res.setHeader('Content-Type', 'text/json');
         res.json(response.data)
     })
 })
