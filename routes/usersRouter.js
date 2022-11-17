@@ -27,7 +27,10 @@ userRouter.route('/')
             if (err) {
                 res.statusCode = 500;
                 res.setHeader('Content-Type', 'application/json');
-                res.json({err: err});
+                res.json({
+                    err: err,
+                    message: 'There was an error registering a new user.'
+                });
                 console.log('There was an error registering a new user');
                 return next(err)
             } else {
